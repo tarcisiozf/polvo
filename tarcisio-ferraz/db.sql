@@ -1,0 +1,31 @@
+CREATE DATABASE polvo;
+
+USE polvo;
+
+CREATE TABLE products (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    sku VARCHAR(15) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(255),
+    price FLOAT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE orders (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE order_products (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_order INT,
+    id_product INT,
+    amount INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX(id_order),
+    FOREIGN KEY (id_order) REFERENCES orders(id),
+    FOREIGN KEY (id_product) REFERENCES products(id)
+); 
